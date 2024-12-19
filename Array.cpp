@@ -2,7 +2,10 @@
 #include <iostream>
 
 template <typename T>
-Array<T>::Array() : arr(nullptr), size(0) {}
+Array<T>::Array() {
+    arr = nullptr;
+    size = 0;
+}
 
 template <typename T>
 Array<T>::~Array() {
