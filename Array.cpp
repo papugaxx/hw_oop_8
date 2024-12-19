@@ -14,15 +14,23 @@ Array<T>::~Array() {
 
 template <typename T>
 void Array<T>::resize(int newSize) {
+  
     T* newArr = new T[newSize];
-    int elementsToCopy = (newSize < size) ? newSize : size;
+    int elementsToCopy;
+
+    if (newSize < size) {
+        elementsToCopy = newSize;
+    }
+    else {
+        elementsToCopy = size;
+    }
 
     for (int i = 0; i < elementsToCopy; i++) {
         newArr[i] = arr[i];
     }
 
-    delete[] arr;
-    arr = newArr;
+    delete[] arr; 
+    arr = newArr; 
     size = newSize;
 }
 
@@ -38,12 +46,17 @@ void Array<T>::SetSize(int newSize) {
 
 template <typename T>
 int Array<T>::GetUpperBound() const {
-    return size - 1;
+    return arr[size - 1];
 }
 
 template <typename T>
 bool Array<T>::IsEmpty() const {
-    return size == 0;
+    if (size == 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 template <typename T>
@@ -60,23 +73,26 @@ void Array<T>::RemoveAll() {
 
 template <typename T>
 T Array<T>::GetAt(int index) const {
+
     return arr[index];
 }
 
 template <typename T>
 void Array<T>::SetAt(int index, const T& value) {
+
     arr[index] = value;
 }
 
 template <typename T>
 T& Array<T>::operator[](int index) {
+  
     return arr[index];
 }
 
 template <typename T>
 void Array<T>::Add(const T& value) {
     resize(size + 1);
-    arr[size - 1] = value;
+    arr[size - 1] = value; 
 }
 
 template <typename T>
@@ -96,19 +112,19 @@ void Array<T>::Append(const Array<T>& other) {
 
 template <typename T>
 Array<T>& Array<T>::operator=(const Array<T>& other) {
-    if (this != &other) {
-        delete[] arr;
-        size = other.size;
-        arr = new T[size];
-        for (int i = 0; i < size; i++) {
-            arr[i] = other.arr[i];
-        }
+    delete[] arr;
+    size = other.size;
+    arr = new T[size];
+    for (int i = 0; i < size; i++) {
+        arr[i] = other.arr[i];
     }
-    return *this;
+    Array<T> result = other;
+    return result;
 }
 
 template <typename T>
 void Array<T>::InsertAt(int index, const T& value) {
+
     resize(size + 1);
     for (int i = size - 1; i > index; i--) {
         arr[i] = arr[i - 1];
@@ -118,6 +134,7 @@ void Array<T>::InsertAt(int index, const T& value) {
 
 template <typename T>
 void Array<T>::RemoveAt(int index) {
+ 
     for (int i = index; i < size - 1; i++) {
         arr[i] = arr[i + 1];
     }
